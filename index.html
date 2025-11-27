@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Personal portfolio website of Pasindu Lochana Rathnayaka - Software Engineering Student & Beginner Full Stack Developer">
+    <meta name="keywords" content="Pasindu Lochana Rathnayaka, Software Engineer, Full Stack Developer, Web Developer, Portfolio">
+    <meta name="author" content="Pasindu Lochana Rathnayaka">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lochgraphy.github.io/">
+    <meta property="og:title" content="Pasindu Lochana Rathnayaka | Software Engineering Student & Full Stack Developer">
+    <meta property="og:description" content="Software Engineering Student & Beginner Full Stack Developer. Focused on web development, full stack technologies, and future iOS app development.">
+    <meta property="og:image" content="assets/images/profile/profilePic.heic">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://lochgraphy.github.io/">
+    <meta property="twitter:title" content="Pasindu Lochana Rathnayaka | Software Engineering Student & Full Stack Developer">
+    <meta property="twitter:description" content="Software Engineering Student & Beginner Full Stack Developer. Focused on web development, full stack technologies, and future iOS app development.">
+    <meta property="twitter:image" content="assets/images/profile/profilePic.heic">
+    
+    <title>Pasindu Lochana Rathnayaka | Software Engineering Student & Beginner Full Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader-wrapper" id="loaderWrapper">
+        <div class="loader">
+            <div class="loader-logo">
+                <img src="assets/images/logo/lochgraphy.png" alt="Loading..." class="loader-image">
+            </div>
+            <div class="loader-text">lochgraphy</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Skip to main content link for accessibility -->
+    <a href="#hero" class="skip-link">Skip to main content</a>
+    
+    <!-- Fixed Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#hero">
+                    <img src="assets/images/logo/lochgraphy.png" alt="Lochgraphy Logo" class="logo-image">
+                    <span class="logo-text">lochgraphy</span>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Hero Section -->
+    <section id="hero" class="section" aria-label="Hero section">
+        <!-- Hero Carousel Background -->
+        <div class="hero-carousel">
+            <div class="carousel-slide active">
+                <img src="assets/images/hero/1.jpg" alt="Hero Image 1">
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/images/hero/2.jpg" alt="Hero Image 2">
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/images/hero/3.jpg" alt="Hero Image 3">
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/images/hero/4.jpg" alt="Hero Image 4">
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/images/hero/5.jpg" alt="Hero Image 5">
+            </div>
+            <div class="carousel-slide">
+                <img src="assets/images/hero/6.jpg" alt="Hero Image 6">
+            </div>
+        </div>
+        
+        <!-- Hero Overlay -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Hero Content -->
+        <div class="container">
+            <header class="hero-content">
+                <h1 class="hero-name">Pasindu Lochana Rathnayaka</h1>
+                <p class="hero-title">Software Engineering Student & Beginner Full Stack Developer</p>
+                <p class="hero-tagline">Focused on web development, full stack technologies, and future iOS app development. Turning ideas into clean, functional web experiences.</p>
+                <a href="#projects" class="cta-button">View My Work</a>
+            </header>
+        </div>
+        
+        <!-- Carousel Navigation Dots -->
+        <div class="carousel-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+            <span class="dot" data-slide="3"></span>
+            <span class="dot" data-slide="4"></span>
+            <span class="dot" data-slide="5"></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section" aria-label="About me section">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="about-content">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="about-bio">
+                        Currently 23 years old, eager to learn, aspiring software engineer. Skills developing over time, open to challenges. Also skilled in video editing.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <img src="assets/images/profile/profilePic.heic" alt="Pasindu Lochana Rathnayaka" class="about-photo" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\'%3E%3Crect width=\'400\' height=\'400\' fill=\'%231a1a1a\'/%3E%3Ccircle cx=\'200\' cy=\'150\' r=\'60\' fill=\'%236366f1\' opacity=\'0.2\'/%3E%3Crect x=\'140\' y=\'220\' width=\'120\' height=\'100\' rx=\'10\' fill=\'%238b5cf6\' opacity=\'0.2\'/%3E%3Ctext x=\'200\' y=\'360\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'16\' fill=\'%23808080\'%3EProfile Photo%3C/text%3E%3C/svg%3E';">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section" aria-label="Skills section">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            
+            <!-- Frontend Skills -->
+            <div class="skill-category">
+                <h3 class="category-title">Frontend</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                        <span class="skill-name">HTML</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                        <span class="skill-name">CSS</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fab fa-js"></i></div>
+                        <span class="skill-name">JavaScript</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fab fa-react"></i></div>
+                        <span class="skill-name">React <span class="skill-level">(Beginner)</span></span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                        <span class="skill-name">Tailwind CSS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Skills -->
+            <div class="skill-category">
+                <h3 class="category-title">Backend</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                        <span class="skill-name">Node.js</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fas fa-database"></i></div>
+                        <span class="skill-name">MySQL</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fas fa-leaf"></i></div>
+                        <span class="skill-name">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools -->
+            <div class="skill-category">
+                <h3 class="category-title">Tools</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fab fa-github"></i></div>
+                        <span class="skill-name">GitHub</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fas fa-code"></i></div>
+                        <span class="skill-name">VS Code</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fab fa-figma"></i></div>
+                        <span class="skill-name">Figma</span>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fas fa-mouse-pointer"></i></div>
+                        <span class="skill-name">Cursor</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Skills -->
+            <div class="skill-category">
+                <h3 class="category-title">Other</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon"><i class="fas fa-video"></i></div>
+                        <span class="skill-name">Video Editing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section" aria-label="Projects section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1: NETHWIN PRINTERS AND BOOKSHOP -->
+                <article class="project-card">
+                    <div class="project-image" onclick="openImageModal('assets/images/projectImages/nethwin.lk.png', 'NETHWIN PRINTERS AND BOOKSHOP Website')">
+                        <img src="assets/images/projectImages/nethwin.lk.png" alt="NETHWIN PRINTERS AND BOOKSHOP Website" class="project-screenshot">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                            <span>Click to view fullscreen</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">NETHWIN PRINTERS AND BOOKSHOP</h3>
+                        <p class="project-description">
+                            College project, managed team, store website in Kandy, Sri Lanka.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">Tailwind CSS</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                        <div class="project-buttons">
+                            <span class="project-button disabled" title="GitHub repository is private"><i class="fas fa-lock"></i> GitHub: Private</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: Portfolio Demo Website -->
+                <article class="project-card">
+                    <div class="project-image" onclick="openImageModal('assets/images/projectImages/psPortfolio.png', 'Portfolio Demo Website')">
+                        <img src="assets/images/projectImages/psPortfolio.png" alt="Portfolio Demo Website" class="project-screenshot">
+                        <div class="image-overlay">
+                            <i class="fas fa-expand"></i>
+                            <span>Click to view fullscreen</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">Portfolio Demo Website for PS Project Viva</h3>
+                        <p class="project-description">
+                            Small portfolio website created for PS project.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">Tailwind CSS</span>
+                            <span class="tech-tag">JS</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="https://github.com/loch68/ps-portfolio" target="_blank" rel="noopener noreferrer" class="project-button github-button">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="https://loch68.github.io/ps-portfolio/" target="_blank" rel="noopener noreferrer" class="project-button demo-button">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section" aria-label="Education section">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <!-- Education Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">Present</div>
+                        <h3 class="timeline-title">HND in IT</h3>
+                        <p class="timeline-institution">SCU, Sri Lanka</p>
+                    </div>
+                </div>
+
+                <!-- Education Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">Previous</div>
+                        <h3 class="timeline-title">GCE AL & OL</h3>
+                        <p class="timeline-institution">Nuwara Eliya Gamini Central College</p>
+                    </div>
+                </div>
+
+                <!-- Education Item 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">Previous</div>
+                        <h3 class="timeline-title">Computer Science Certification</h3>
+                        <p class="timeline-institution">NIBM Sri Lanka</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section id="languages" class="section" aria-label="Languages section">
+        <div class="container">
+            <h2 class="section-title">Languages</h2>
+            <div class="languages-container">
+                <div class="language-badge">
+                    <span class="language-flag"><i class="fas fa-globe"></i></span>
+                    <span class="language-name">Sinhala</span>
+                    <span class="language-level">Native</span>
+                </div>
+                <div class="language-badge">
+                    <span class="language-flag"><i class="fas fa-globe"></i></span>
+                    <span class="language-name">English</span>
+                    <span class="language-level">Fluent</span>
+                </div>
+                <div class="language-badge">
+                    <span class="language-flag"><i class="fas fa-globe"></i></span>
+                    <span class="language-name">Italian</span>
+                    <span class="language-level">A little</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section id="hobbies" class="section" aria-label="Hobbies and interests section">
+        <div class="container">
+            <h2 class="section-title">Hobbies & Interests</h2>
+            <div class="hobbies-grid">
+                <div class="hobby-item">
+                    <div class="hobby-icon"><i class="fas fa-music"></i></div>
+                    <h3 class="hobby-name">Music</h3>
+                </div>
+                <div class="hobby-item">
+                    <div class="hobby-icon"><i class="fas fa-tree"></i></div>
+                    <h3 class="hobby-name">Nature</h3>
+                </div>
+                <div class="hobby-item">
+                    <div class="hobby-icon"><i class="fas fa-video"></i></div>
+                    <h3 class="hobby-name">Video Editing</h3>
+                </div>
+                <div class="hobby-item">
+                    <div class="hobby-icon"><i class="fas fa-cloud"></i></div>
+                    <h3 class="hobby-name">Nephophile</h3>
+                    <p class="hobby-description">Cloud Lover</p>
+                </div>
+                <div class="hobby-item">
+                    <div class="hobby-icon"><i class="fas fa-star"></i></div>
+                    <h3 class="hobby-name">Astronomy</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section id="testimonial" class="section">
+        <div class="container">
+            <h2 class="section-title">Testimonial</h2>
+            <div class="testimonial-wrapper">
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <blockquote class="testimonial-quote">
+                        Pasindu is a dedicated and skilled developer with a strong work ethic. His attention to detail and commitment to delivering quality work makes him a valuable team member. He consistently demonstrates excellent problem-solving abilities and a passion for learning new technologies.
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-name">Lashan Herath</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section" aria-label="Contact section">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="contact-subtitle">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
+            
+            <div class="contact-cta">
+                <a href="mailto:lochgraphy@gmail.com" class="cta-button contact-button">Email Me</a>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-details">
+                        <h3 class="contact-label">Email</h3>
+                        <a href="mailto:lochgraphy@gmail.com" class="contact-link">lochgraphy@gmail.com</a>
+                        <a href="mailto:lochana211@gmail.com" class="contact-link">lochana211@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <div class="contact-details">
+                        <h3 class="contact-label">Phone</h3>
+                        <a href="tel:+94778660753" class="contact-link">0778660753</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <h3 class="social-title">Connect with me</h3>
+                <div class="social-icons">
+                    <a href="https://github.com/loch68/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                        <span class="social-name">GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/pasindu-lochana-rathnayaka-86252a252/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                        <span class="social-name">LinkedIn</span>
+                    </a>
+                    <a href="https://instagram.com/lochgraphy" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span class="social-name">Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Modal for Fullscreen View -->
+    <div id="imageModal" class="image-modal" onclick="closeImageModal(event)">
+        <span class="modal-close" onclick="closeImageModal(event)">&times;</span>
+        <img id="modalImage" class="modal-image" src="" alt="">
+        <div class="modal-caption"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Pasindu Lochana Rathnayaka</h3>
+                    <p class="footer-description">Software Engineering Student & Beginner Full Stack Developer</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-heading">Connect</h4>
+                    <div class="footer-social">
+                        <a href="https://github.com/loch68" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/pasindu-lochana-rathnayaka-86252a252/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://instagram.com/lochgraphy" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> Pasindu Lochana Rathnayaka. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
