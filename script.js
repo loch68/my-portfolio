@@ -548,31 +548,90 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Loading Screen Handler
+// Loading Screen Handler with Real Progress
 document.addEventListener('DOMContentLoaded', function() {
     const loaderWrapper = document.getElementById('loaderWrapper');
+    const progressBar = document.getElementById('loaderProgressBar');
+    const percentageText = document.getElementById('loaderPercentage');
     
-    if (loaderWrapper) {
-        // Hide loader when page is fully loaded
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                loaderWrapper.classList.add('hidden');
-                // Remove from DOM after animation
-                setTimeout(() => {
-                    loaderWrapper.style.display = 'none';
-                }, 500);
-            }, 800);
-        });
+    if (loaderWrapper && progressBar && percentageText) {
+        let progress = 0;
+        let progressInterval;
         
-        // Fallback: Hide loader after max 3 seconds
-        setTimeout(() => {
-            if (loaderWrapper && !loaderWrapper.classList.contains('hidden')) {
-                loaderWrapper.classList.add('hidden');
+        // Simulate progress based on actual page loading
+        function updateProgress() {
+            if (progress < 90) {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+            }
+            
+            progressBar.style.width = progress + '%';
+            percentageText.textContent = Math.floor(progress) + '%';
+        }
+        
+        // Start progress animation
+        progressInterval = setInterval(updateProgress, 100);
+        
+        // Track actual loading progress
+        function handleProgress() {
+            if (document.readyState === 'complete') {
+                progress = 100;
+                progressBar.style.width = '100%';
+                percentageText.textContent = '100%';
+                clearInterval(progressInterval);
+                
+                // Hide loader after completion
                 setTimeout(() => {
-                    loaderWrapper.style.display = 'none';
+                    loaderWrapper.classList.add('hidden');
+                    setTimeout(() => {
+                        loaderWrapper.style.display = 'none';
+                    }, 600);
                 }, 500);
             }
-        }, 3000);
+        }
+        
+        // Check if already loaded
+        if (document.readyState === 'complete') {
+            handleProgress();
+        } else {
+            // Listen for page load
+            window.addEventListener('load', function() {
+                progress = 95;
+                progressBar.style.width = '95%';
+                percentageText.textContent = '95%';
+                clearInterval(progressInterval);
+                
+                setTimeout(() => {
+                    progress = 100;
+                    progressBar.style.width = '100%';
+                    percentageText.textContent = '100%';
+                    
+                    setTimeout(() => {
+                        loaderWrapper.classList.add('hidden');
+                        setTimeout(() => {
+                            loaderWrapper.style.display = 'none';
+                        }, 600);
+                    }, 300);
+                }, 200);
+            });
+            
+            // Fallback: Hide loader after max 4 seconds
+            setTimeout(() => {
+                if (loaderWrapper && !loaderWrapper.classList.contains('hidden')) {
+                    progress = 100;
+                    progressBar.style.width = '100%';
+                    percentageText.textContent = '100%';
+                    clearInterval(progressInterval);
+                    
+                    setTimeout(() => {
+                        loaderWrapper.classList.add('hidden');
+                        setTimeout(() => {
+                            loaderWrapper.style.display = 'none';
+                        }, 600);
+                    }, 300);
+                }
+            }, 4000);
+        }
     }
 });
 
