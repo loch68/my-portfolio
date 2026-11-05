@@ -1,0 +1,25 @@
+{
+  "name": "loch-portfolio",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Cinematic personal portfolio of Pasindu Lochana Rathnayaka (Lochgraphy)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  },
+  "devDependencies": {
+    "@fontsource/space-grotesk": "^5.2.8",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.0"
+  }
+}
