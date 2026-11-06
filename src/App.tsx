@@ -1,6 +1,6 @@
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
-import { LoadingIndicator } from './components/LoadingIndicator';
+import { SiteBackground } from './components/SiteBackground';
 import { ScrollProgress } from './components/ScrollProgress';
 import {
   AboutSection,
@@ -14,13 +14,13 @@ import {
 export default function App() {
   return (
     <>
+      <SiteBackground />
       <a className="skip-link" href="#main">
         Skip to main content
       </a>
       <ScrollProgress />
-      <LoadingIndicator />
       <Nav />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <Hero />
         <ProjectsSection />
         <AboutSection />

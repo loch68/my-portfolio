@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
 import {
   CONTACT,
   EDUCATION,
   PORTFOLIO_STATS,
   PROJECTS,
+  SECTION_LINKS,
   SERVICES,
 } from '../data/content';
 import { CountUp } from './CountUp';
@@ -63,12 +63,12 @@ function SocialIcon({ label }: { label: string }) {
 
 export function ProjectsSection() {
   return (
-    <section className="section section--work" id="work" aria-labelledby="work-label">
+    <section className="section section--work" id="work" aria-labelledby="work-label" tabIndex={-1}>
       <div className="container">
         <SectionHead
           id="work-label"
           label="Projects & Engagements"
-          index="02 · Selected Work"
+          index="01 · Selected Work"
           support="Selected work, creative projects, and digital experiences that show how I work."
         />
 
@@ -86,9 +86,9 @@ export function ProjectsSection() {
 
 export function AboutSection() {
   return (
-    <section className="section section--about" id="about" aria-labelledby="about-label">
+    <section className="section section--about" id="about" aria-labelledby="about-label" tabIndex={-1}>
       <div className="container">
-        <SectionHead id="about-label" label="About" index="03 · Identity" />
+        <SectionHead id="about-label" label="About" index="02 · Identity" />
 
         <div className="about__layout">
           <Reveal className="about__media">
@@ -96,10 +96,10 @@ export function AboutSection() {
               <img
                 src={IMAGES.profile.src}
                 srcSet={IMAGES.profile.srcSet}
-                sizes="(max-width: 860px) 100vw, 38vw"
+                sizes="(max-width: 720px) calc(100vw - 40px), (max-width: 860px) 45vw, 38vw"
                 width={IMAGES.profile.width}
                 height={IMAGES.profile.height}
-                alt="Pasindu Lochana Rathnayaka"
+                alt="Portrait of Pasindu Lochana Rathnayaka outdoors in a green sweater, with one hand raised to his brow"
                 loading="lazy"
                 decoding="async"
               />
@@ -147,78 +147,29 @@ export function AboutSection() {
 }
 
 export function EducationSection() {
-  const timelineRef = useRef<HTMLDivElement>(null);
-
-  // Fill the timeline line as the section travels through the viewport. The
-  // value is written to a CSS custom property so scrolling does not re-render
-  // React. Reduced-motion visitors get a fully drawn, immediately readable line.
-  useEffect(() => {
-    const el = timelineRef.current;
-    if (!el) return;
-
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) {
-      el.style.setProperty('--timeline-progress', '1');
-      return;
-    }
-
-    let frame = 0;
-
-    const update = () => {
-      frame = 0;
-      const rect = el.getBoundingClientRect();
-      const viewport = window.innerHeight;
-      const start = viewport * 0.82;
-      const end = viewport * 0.18;
-      const distance = rect.height + start - end;
-      const progress =
-        distance > 0 ? Math.min(1, Math.max(0, (start - rect.top) / distance)) : 0;
-      el.style.setProperty('--timeline-progress', progress.toFixed(4));
-    };
-
-    const onScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(update);
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    update();
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
-
   return (
-    <section className="section section--education" id="education" aria-labelledby="education-label">
+    <section className="section section--education" id="education" aria-labelledby="education-label" tabIndex={-1}>
       <div className="container">
-        <SectionHead id="education-label" label="Education" index="01 · Background" />
+        <SectionHead id="education-label" label="Education" index="03 · Background" />
 
-        <div className="education-timeline" ref={timelineRef}>
-          <div className="education-timeline__track" aria-hidden="true">
-            <span className="education-timeline__fill" />
-          </div>
-
-          <ol className="education-timeline__list">
-            {EDUCATION.map((entry, i) => (
-              <Reveal as="li" key={entry.institution} className="education-entry" styleDelay={i}>
-                <span className="education-entry__marker" aria-hidden="true" />
-                <div className="education-entry__content">
-                  <p className="education__period">{entry.period}</p>
-                  <h3 className="education__institution">{entry.institution}</h3>
-                  <p className="education__qualification">{entry.qualification}</p>
-                  <div className="education__meta">
-                    <span>{entry.status}</span>
-                    {entry.detail && <span>{entry.detail}</span>}
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
+        {/* The labels describe milestone types, not a chronology. A plain
+            divided list avoids implying a sequence the available data cannot
+            support. */}
+        <ol className="education-list">
+          {EDUCATION.map((entry, i) => (
+            <Reveal as="li" key={entry.institution} className="education-entry" styleDelay={i}>
+              <div className="education-entry__meta">
+                <p className="education__period">{entry.period}</p>
+                <p className="education__status">{entry.status}</p>
+                {entry.detail && <p className="education__detail">{entry.detail}</p>}
+              </div>
+              <div className="education-entry__content">
+                <h3 className="education__institution">{entry.institution}</h3>
+                <p className="education__qualification">{entry.qualification}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
       </div>
     </section>
   );
@@ -226,7 +177,7 @@ export function EducationSection() {
 
 export function ServicesSection() {
   return (
-    <section className="section section--services" id="services" aria-labelledby="services-label">
+    <section className="section section--services" id="services" aria-labelledby="services-label" tabIndex={-1}>
       <div className="container">
         <SectionHead
           id="services-label"
@@ -251,44 +202,57 @@ export function ContactSection() {
   const mailHref = `mailto:${CONTACT.email}?subject=${encodeURIComponent('[Portfolio] Project inquiry')}`;
 
   return (
-    <section className="section section--contact" id="contact" aria-labelledby="contact-label">
-      <div className="contact__inner">
-        <Reveal className="contact__intro">
-          <h2 id="contact-label" className="contact__label">Let's work together.</h2>
-          <p>
-            Have a project in mind, need a digital solution, or want to
-            collaborate? Get in touch and let's discuss what we can create.
-          </p>
-          <div className="contact__direct">
-            <div className="contact__direct-item">
-              <MailIcon />
-              <a href={mailHref}>{CONTACT.email}</a>
-            </div>
-            <div className="contact__direct-item">
-              <PhoneIcon />
-              <a href={CONTACT.phones[0].href}>{CONTACT.phones[0].label}</a>
-            </div>
-          </div>
-        </Reveal>
+    <section className="section section--contact" id="contact" aria-labelledby="contact-label" tabIndex={-1}>
+      <div className="container">
+        <SectionHead id="contact-label" label="Contact" index="05 · Contact" />
 
-        <Reveal className="contact__socials">
-          <h3>Elsewhere</h3>
-          <ul className="contact__social-list" role="list">
-            {CONTACT.socials.map((social) => (
-              <li key={social.label} className="contact__social-item">
-                <SocialIcon label={social.label} />
-                <a href={social.href} target="_blank" rel="noopener noreferrer">
-                  {social.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p className="contact__cv">
-            <a href={IMAGES.cv} download className="editorial-link">
-              Download CV — PDF
-            </a>
-          </p>
-        </Reveal>
+        <div className="contact__inner">
+          <Reveal className="contact__intro">
+            <h3 className="contact__label">Let's work together.</h3>
+            <p>
+              Have a project in mind, need a digital solution, or want to
+              collaborate? Get in touch and let's discuss what we can create.
+            </p>
+            <div className="contact__direct">
+              <a className="contact__direct-item" href={mailHref}>
+                <MailIcon />
+                <span>{CONTACT.email}</span>
+              </a>
+              <a className="contact__direct-item" href={CONTACT.phones[0].href}>
+                <PhoneIcon />
+                <span>{CONTACT.phones[0].label}</span>
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal className="contact__socials">
+            <h3>Elsewhere</h3>
+            <ul className="contact__social-list" role="list">
+              {CONTACT.socials.map((social) => (
+                <li key={social.label}>
+                  <a
+                    className="contact__social-item"
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SocialIcon label={social.label} />
+                    <span>
+                      {social.label}
+                      <span className="external-mark" aria-hidden="true">↗</span>
+                    </span>
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="contact__cv">
+              <a href={IMAGES.cv} download className="editorial-link">
+                Download CV — PDF
+              </a>
+            </p>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -298,12 +262,18 @@ export function Footer() {
   return (
     <footer className="footer">
       <span className="footer__identity">Pasindu Lochana Rathnayaka — Lochgraphy</span>
-      <div className="footer__links">
-        <a href="#top">Back to top</a>
-        <a href="#work">Work</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-      </div>
+      <nav className="footer__nav" aria-label="Footer">
+        <ul className="footer__links" role="list">
+          {SECTION_LINKS.map((link) => (
+            <li key={link.href}>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+          <li>
+            <a href="#top">Back to top</a>
+          </li>
+        </ul>
+      </nav>
       <span className="footer__copy">
         © {new Date().getFullYear()} · Built with plain React, Canvas &amp; WebGL
       </span>

@@ -2,7 +2,7 @@ import type { Project } from "../data/content";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="project">
+    <article className={`project${project.link ? ' project--linked' : ''}${project.link?.external ? ' project--external' : ''}`}>
       {project.image && (
         <figure className="project__media">
           <img
@@ -48,7 +48,15 @@ export function ProjectCard({ project }: { project: Project }) {
               : {})}
           >
             {project.link.label}
-            <span aria-hidden="true">→</span>
+            <span className="sr-only"> for {project.title}</span>
+            {project.link.external ? (
+              <>
+                <span className="external-mark" aria-hidden="true">↗</span>
+                <span className="sr-only"> (opens in a new tab)</span>
+              </>
+            ) : (
+              <span aria-hidden="true">→</span>
+            )}
           </a>
         )}
       </div>

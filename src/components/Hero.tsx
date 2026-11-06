@@ -1,114 +1,44 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { RefractedText } from "./refracted-text";
-import { IMAGES, VIDEO } from "../assets";
+
+const COMPACT_MARK_QUERY = "(max-width: 720px)";
 
 /**
- * Hero — interactive cinematic video experience.
- *
- * The abstract hero video (assets/images/hero/heroVideo.mp4) is the full-screen
- * background behind the existing LOCH brand identity. The video plays muted,
- * autoplaying and looping, with the hero-2400.jpg poster as static fallback.
- *
- * Mouse movement produces a subtle parallax translation of the video surface
- * (desktop only, respects prefers-reduced-motion). The hero text, Refracted
- * Text wordmark, and navigation remain stable — only the background video moves.
- *
- * Renders immediately: the poster image is shown from first paint, nothing
- * waits on video download or WebGL initialization.
+ * The refracted wordmark is tuned for a large desktop canvas. At the smaller
+ * mobile size its dark lower glass reads as an outline against the dark
+ * background, so the compact breakpoint gets a lighter lower glass and a
+ * slightly heavier contour. Desktop props stay untouched.
  */
-export function Hero() {
-  const rafRef = useRef<number>(0);
+function useCompactMark() {
+  const [compact, setCompact] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia(COMPACT_MARK_QUERY).matches,
+  );
 
-  // Pointer-responsive parallax: translate the video surface slightly in the
-  // opposite direction of the mouse. Uses rAF (not React state) so every
-  // mouse event stays cheap. Restricted to fine-pointer devices.
   useEffect(() => {
-    const container = document.querySelector(".hero") as HTMLElement;
-    const video = document.querySelector(".hero__video") as HTMLVideoElement;
-    if (!video || !container) return;
-
-    const MAX_TRANSLATE_X = 12;
-    const MAX_TRANSLATE_Y = 9;
-    let targetX = 0;
-    let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    let running = false;
-
-    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    const animate = () => {
-      // Smooth interpolation toward the target position.
-      currentX += (targetX - currentX) * 0.12;
-      currentY += (targetY - currentY) * 0.12;
-
-      video.style.setProperty("--parallax-x", `${currentX}px`);
-      video.style.setProperty("--parallax-y", `${currentY}px`);
-
-      if (
-        Math.abs(targetX - currentX) > 0.05 ||
-        Math.abs(targetY - currentY) > 0.05
-      ) {
-        rafRef.current = requestAnimationFrame(animate);
-      } else {
-        running = false;
-      }
-    };
-
-    const onMove = (event: PointerEvent) => {
-      if (!isFinePointer || prefersReduced) return;
-      const rect = container.getBoundingClientRect();
-      const nx = (event.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-      const ny = (event.clientY - rect.top) / rect.height - 0.5;
-      targetX = -nx * MAX_TRANSLATE_X;
-      targetY = -ny * MAX_TRANSLATE_Y;
-      if (!running) {
-        running = true;
-        rafRef.current = requestAnimationFrame(animate);
-      }
-    };
-
-    const onLeave = () => {
-      targetX = 0;
-      targetY = 0;
-      if (!running) {
-        running = true;
-        rafRef.current = requestAnimationFrame(animate);
-      }
-    };
-
-    container.addEventListener("pointermove", onMove as EventListener);
-    container.addEventListener("pointerleave", onLeave as EventListener);
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      container.removeEventListener("pointermove", onMove as EventListener);
-      container.removeEventListener("pointerleave", onLeave as EventListener);
-    };
+    const query = window.matchMedia(COMPACT_MARK_QUERY);
+    const onChange = () => setCompact(query.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
   }, []);
 
+  return compact;
+}
+
+/**
+ * Hero — editorial intro over the site-wide procedural black-hole background.
+ *
+ * The background is owned by <SiteBackground /> at the application level, so
+ * this section only owns the LOCH identity, typography, CTAs and scroll cue.
+ * The content is never blocked on shader compilation, GPU availability or
+ * media downloads.
+ */
+export function Hero() {
+  const compactMark = useCompactMark();
+
   return (
-    <section
-      className="hero"
-      id="top"
-      aria-label="Introduction"
-      style={{ backgroundImage: `url(${IMAGES.hero.wide.src})` }}
-    >
-      <video
-        className="hero__video"
-        src={VIDEO.hero}
-        poster={IMAGES.hero.wide.src}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-        tabIndex={-1}
-      />
+    <section className="hero" id="top" aria-label="Introduction">
       <div className="container hero__content">
         <div className="hero__eyebrow">
           Pasindu Lochana Rathnayaka <span aria-hidden="true">-</span> Digital
@@ -132,12 +62,12 @@ export function Hero() {
             colorIntensity={0.9}
             beamColor="#1670BB"
             topColor="#E7E6E7"
-            bottomColor="#303A59"
+            bottomColor={compactMark ? "#5C6C88" : "#303A59"}
             fontSize="clamp(72px, 16vw, 210px)"
             fontFamily="'ReactDrops Square Display', 'Space Grotesk', sans-serif"
             fontWeight={900}
             letterSpacing="-0.02em"
-            extraBold={2.1}
+            extraBold={compactMark ? 2.8 : 2.1}
             fontHeight={78}
             cornerRounding={1}
           />

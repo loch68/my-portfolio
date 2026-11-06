@@ -26,6 +26,7 @@ export function ServiceCard({ service }: { service: ServiceCategory }) {
 
       <a className="service-card__action" href="#contact">
         Discuss this service
+        <span className="sr-only"> — {service.title} (goes to the contact section)</span>
         <span aria-hidden="true">→</span>
       </a>
     </article>

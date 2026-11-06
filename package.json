@@ -6,7 +6,7 @@
   "description": "Cinematic personal portfolio of Pasindu Lochana Rathnayaka (Lochgraphy)",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/prune-legacy-hero-assets.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

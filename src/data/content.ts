@@ -9,6 +9,14 @@ import { asset } from '../assets';
  * only the external action is omitted.
  */
 
+export const SECTION_LINKS = [
+  { href: '#work', label: 'Work' },
+  { href: '#about', label: 'About' },
+  { href: '#education', label: 'Education' },
+  { href: '#services', label: 'Services' },
+  { href: '#contact', label: 'Contact' },
+] as const;
+
 export type ProjectStatus = 'live' | 'construction';
 
 export interface Project {
@@ -41,7 +49,7 @@ export const PROJECTS: Project[] = [
     tags: ['Travel & Tourism', 'Website Development', 'Digital Experience'],
     image: {
       src: asset('projects/ceylon-pathways.jpg'),
-      alt: 'Ceylon Pathways website — Explore Sri Lanka with Comfort & Privacy',
+      alt: 'Ceylon Pathways travel website hero with a group photo of travelers and the headline "Explore Sri Lanka with Comfort & Confidence"',
       width: 1600,
       height: 843,
       caption: 'ceylonpathways.vercel.app — live site',
@@ -63,7 +71,7 @@ export const PROJECTS: Project[] = [
     tags: ['Next.js', 'TypeScript', 'Supabase', 'Cloudinary'],
     image: {
       src: asset('projects/telca-cctv.jpg'),
-      alt: 'Telca Solutions website — Security products, quoted for your project',
+      alt: 'Telca Solutions CCTV website hero with a security camera against a cloudy sky and the headline "Security products, quoted for your project"',
       width: 1600,
       height: 857,
       caption: 'catalogue & quotation system — in active development',
@@ -79,7 +87,7 @@ export const PROJECTS: Project[] = [
     tags: ['Web Development', 'E-commerce', 'Print on Demand'],
     image: {
       src: asset('projects/nethwin-bookshop.jpg'),
-      alt: 'Nethwin Bookshop website — print on demand and book collection',
+      alt: 'Green and white NethwinLK landing page with print-on-demand and bookshop entry cards',
       width: 1600,
       height: 879,
       caption: 'nethwinlk.com — print & bookshop project',
@@ -95,7 +103,7 @@ export const PROJECTS: Project[] = [
     tags: ['Academic Portfolio', 'Student Work', 'Creative Technology'],
     image: {
       src: asset('projects/ps-portfolio.jpg'),
-      alt: "Campus portfolio showcase — 'Professional Skills Portfolio by Pasindu Lochana'",
+      alt: 'Student showcase portfolio landing page with a classical statue backdrop and the title "Professional Skills Portfolio"',
       width: 1600,
       height: 879,
       caption: 'student portfolio project',
@@ -219,13 +227,16 @@ export const EDUCATION: EducationEntry[] = [
 ];
 
 /**
- * Figures shown in About. Derived from the actual content arrays so the
- * numbers can never drift from the work they describe.
+ * Figures shown in About. The first three are derived from the actual content
+ * arrays so they can never drift from the work they describe. The line count
+ * is the measured project-source total (src/, index.html, vite.config.ts,
+ * cloc, 2026-11-06) and should be refreshed when the codebase changes.
  */
 export const PORTFOLIO_STATS = [
   { label: 'Selected projects', value: PROJECTS.length },
   { label: 'Service categories', value: SERVICES.length },
   { label: 'Education milestones', value: EDUCATION.length },
+  { label: 'Lines of code', value: 4621 },
 ] as const;
 
 export interface SocialLink {
