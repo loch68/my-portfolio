@@ -950,6 +950,7 @@ export function createRefractedRenderer(
       ctx.translate(drawX + origin * scaleX, baseline);
       ctx.scale(scaleX, scaleY);
       if (strokeRadius > 0) ctx.strokeText(letter, 0, 0);
+      ctx.fillStyle = '#fff';
       ctx.fillText(letter, 0, 0);
       ctx.restore();
       // Read and scan only this glyph's columns, rather than the whole word
