@@ -714,6 +714,172 @@ main,
   }
 }
 
+/* ---------- Initial load preloader ---------- */
+
+/* Full-bleed overlay shown only on the first paint. It sits above everything
+   (including the shader background) and is removed once the homepage is
+   ready, so it never reappears during normal SPA navigation. */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--color-background);
+  color: var(--color-text);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+.preloader--done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader__layer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 28rem;
+  padding: 0 1rem;
+}
+
+.preloader__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(
+    circle,
+    rgba(22, 112, 187, 0.22),
+    transparent 68%
+  );
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: preloader-glow 2.4s ease-in-out infinite;
+  animation-delay: 0.9s;
+  animation-fill-mode: both;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.preloader__wordmark {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 7vw, 2.7rem);
+  line-height: 1;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: preloader-mark-up 0.8s
+    cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: 0.15s;
+  text-shadow: 0 0 22px rgba(22, 112, 187, 0.12);
+}
+
+.preloader__rule {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 15rem;
+  height: 1px;
+  background: var(--color-border);
+  margin-top: 0.3rem;
+}
+
+.preloader__line {
+  position: absolute;
+  inset: 0 0 0 0;
+  height: 100%;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: preloader-line-draw 0.7s
+    cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  animation-delay: 0.55s;
+  box-shadow: 0 0 14px rgba(22, 112, 187, 0.5);
+}
+
+.preloader__dot {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  transform: translate(50%, -50%) scale(0);
+  animation: preloader-dot-bloom 0.55s ease forwards;
+  animation-delay: 1.25s;
+  box-shadow: 0 0 16px rgba(22, 112, 187, 0.75);
+}
+
+@keyframes preloader-mark-up {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes preloader-line-draw {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes preloader-dot-bloom {
+  to {
+    transform: translate(50%, -50%) scale(1);
+  }
+}
+
+@keyframes preloader-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+/* Reduced motion: instant, stable reveal with no decorative movement. */
+@media (prefers-reduced-motion: reduce) {
+  .preloader__glow,
+  .preloader__wordmark,
+  .preloader__line,
+  .preloader__dot {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .preloader__line {
+    transform: scaleX(1);
+  }
+  .preloader__dot {
+    transform: translate(50%, -50%) scale(1);
+  }
+  .preloader__glow {
+    opacity: 0.5;
+  }
+  .preloader {
+    transition-duration: 0.01s !important;
+  }
+}
+
 /* ---------- Hero ---------- */
 
 .hero {

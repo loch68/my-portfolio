@@ -1,4 +1,5 @@
 import { Nav } from './components/Nav';
+import { Preloader } from './components/Preloader';
 import { Hero } from './components/Hero';
 import { SiteBackground } from './components/SiteBackground';
 import { ScrollProgress } from './components/ScrollProgress';
@@ -14,6 +15,7 @@ import {
 export default function App() {
   return (
     <>
+      <Preloader />
       <SiteBackground />
       <a className="skip-link" href="#main">
         Skip to main content
