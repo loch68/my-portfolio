@@ -267,6 +267,10 @@ export const CONTACT = {
     { label: '+94 77 866 0753', href: 'tel:+94778660753' },
     { label: '+94 70 466 9661', href: 'tel:+94704669661' },
   ],
+  whatsapp: {
+    label: 'WhatsApp',
+    href: 'https://wa.me/94778660753',
+  },
   socials: [
     { label: 'Instagram', href: 'https://instagram.com/lochgraphy' },
     {

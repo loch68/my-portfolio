@@ -319,6 +319,10 @@ main,
 .nav__logo {
   width: 26px;
   height: 26px;
+  transform-origin: 50% 55%;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 0.45s ease;
 }
 
 .nav__wordmark {
@@ -326,6 +330,19 @@ main,
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.nav__brand:hover .nav__logo,
+.nav__brand:focus-visible .nav__logo {
+  transform: translateY(-1px) scale(1.06) rotate(-3deg);
+  filter: drop-shadow(0 0 10px rgba(151, 215, 255, 0.35));
+}
+
+.nav__brand:hover .nav__wordmark,
+.nav__brand:focus-visible .nav__wordmark {
+  color: #fff;
+  text-shadow: 0 0 18px rgba(151, 215, 255, 0.28);
 }
 
 .nav__links {
@@ -353,10 +370,42 @@ main,
   inset: -6px 0;
 }
 
+/* A short underline grows from the left on hover and focus. The active
+   section keeps the accent-coloured version so it stays identifiable while
+   the visitor moves between items. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.25s ease,
+    background-color 0.25s ease;
+  pointer-events: none;
+}
+
 .nav__link:hover,
 .nav__link:focus-visible,
 .nav__link[aria-current='true'] {
   color: var(--color-text);
+}
+
+.nav__link:hover::after,
+.nav__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav__link[aria-current='true']::after {
+  transform: scaleX(1);
+  opacity: 1;
+  background: var(--color-accent);
 }
 
 .nav__link span {
@@ -364,6 +413,10 @@ main,
   margin-right: 0.5em;
   font-size: 0.72rem;
   vertical-align: 0.18em;
+}
+
+.nav__link[aria-current='true'] span {
+  color: var(--color-accent);
 }
 
 .nav__toggle {
@@ -378,21 +431,49 @@ main,
   z-index: 120;
 }
 
+.nav__toggle::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid transparent;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.nav__toggle:hover::before,
+.nav__toggle:focus-visible::before {
+  border-color: var(--color-border);
+  background: rgba(231, 230, 231, 0.04);
+}
+
 .nav__toggle span {
   position: absolute;
   left: 9px;
   right: 9px;
   height: 1px;
   background: var(--color-text);
-  transition: transform 0.25s ease, top 0.25s ease;
-  top: 21px;
+  transform-origin: center;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    top 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    background-color 0.25s ease;
+  top: 19px;
+}
+
+.nav__toggle span:last-child {
+  top: 25px;
+}
+
+.nav__toggle:hover span {
+  background: #fff;
 }
 
 .nav__toggle[aria-expanded='true'] span:first-child {
+  top: 22px;
   transform: rotate(45deg);
 }
 
 .nav__toggle[aria-expanded='true'] span:last-child {
+  top: 22px;
   transform: rotate(-45deg);
 }
 
@@ -407,34 +488,167 @@ main,
     position: fixed;
     inset: 0;
     flex-direction: column;
-    justify-content: center;
-    gap: 1.6rem;
-    background: var(--color-background);
+    justify-content: flex-start;
+    gap: 0;
+    background:
+      radial-gradient(ellipse at 84% 4%, rgba(22, 112, 187, 0.34), transparent 56%),
+      radial-gradient(ellipse at 8% 100%, rgba(151, 215, 255, 0.1), transparent 46%),
+      linear-gradient(160deg, #242c4c 0%, #1b2442 56%, #10182f 100%);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.35s ease, visibility 0s linear 0.35s;
-    padding: calc(6rem + env(safe-area-inset-top)) 1.5rem
-      calc(2rem + env(safe-area-inset-bottom));
+    clip-path: inset(0 0 100% 0);
+    transition:
+      opacity 0.35s ease,
+      clip-path 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+      visibility 0s linear 0.45s;
+    padding:
+      calc(6.5rem + env(safe-area-inset-top))
+      max(1.5rem, env(safe-area-inset-right))
+      calc(2rem + env(safe-area-inset-bottom))
+      max(1.5rem, env(safe-area-inset-left));
     overflow-y: auto;
+    overflow-x: hidden;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* A quiet brand watermark and section label give the overlay depth without
+     adding another content block. */
+  .nav__links::before {
+    content: 'LOCH';
+    position: absolute;
+    right: 0.02em;
+    bottom: 0.02em;
+    font-family: var(--font-heading);
+    font-size: clamp(7rem, 32vw, 13rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 0.8;
+    color: rgba(231, 230, 231, 0.045);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .nav__links::after {
+    content: 'Navigation';
+    position: absolute;
+    top: calc(4.4rem + env(safe-area-inset-top));
+    left: max(1.5rem, env(safe-area-inset-left));
+    font-family: var(--font-body);
+    font-size: 0.64rem;
+    letter-spacing: 0.22em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--color-muted-text);
+    opacity: 0.7;
+    pointer-events: none;
   }
 
   .nav.is-open .nav__links {
     opacity: 1;
     visibility: visible;
+    clip-path: inset(0);
     transition-delay: 0s;
   }
 
+  .nav__links li {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
   .nav__link {
-    font-size: 1.35rem;
-    letter-spacing: 0.14em;
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: clamp(1.35rem, 6vw, 1.7rem);
+    letter-spacing: 0.12em;
     scroll-margin-block: 1rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+      color 0.2s ease;
+  }
+
+  .nav__links li:first-child .nav__link {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .nav.is-open .nav__link {
+    opacity: 1;
+    transform: none;
+  }
+
+  .nav.is-open .nav__links li:nth-child(1) .nav__link {
+    transition-delay: 0.08s;
+  }
+
+  .nav.is-open .nav__links li:nth-child(2) .nav__link {
+    transition-delay: 0.14s;
+  }
+
+  .nav.is-open .nav__links li:nth-child(3) .nav__link {
+    transition-delay: 0.2s;
+  }
+
+  .nav.is-open .nav__links li:nth-child(4) .nav__link {
+    transition-delay: 0.26s;
+  }
+
+  .nav.is-open .nav__links li:nth-child(5) .nav__link {
+    transition-delay: 0.32s;
+  }
+
+  /* The mobile row uses the same underline slot for a small directional
+     indicator instead of a horizontal rule. The body font is used because it
+     carries the arrow glyph; the heading font does not. */
+  .nav__link::after {
+    content: '→';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    bottom: auto;
+    left: auto;
+    width: auto;
+    height: auto;
+    background: none;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--color-accent);
+    opacity: 0;
+    transform: translateY(-50%) translateX(-6px);
+    transform-origin: center;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .nav__link:hover::after,
+  .nav__link:focus-visible::after,
+  .nav__link[aria-current='true']::after {
+    background: none;
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .nav__link[aria-current='true'] {
+    color: var(--color-text);
   }
 
   .nav__link span {
-    font-size: 0.75rem;
-    vertical-align: 0.3em;
+    margin-right: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    vertical-align: 0.2em;
+    color: var(--color-muted-text);
+  }
+
+  .nav__link[aria-current='true'] span {
+    color: var(--color-accent);
   }
 
   body.nav-open {
@@ -449,23 +663,54 @@ main,
   }
 }
 
-/* Short landscape phones cannot fit the centered five-link stack. Start the
-   menu at the top and tighten the rhythm so every link is reachable, while the
-   menu itself stays scrollable if safe-area insets or large text need more
-   room. */
+/* Short landscape phones cannot fit the full row rhythm. Start the menu at
+   the top and tighten it so every link stays reachable while the overlay
+   remains scrollable if safe-area insets or large text need more room. */
 @media (max-width: 900px) and (max-height: 500px) {
   .nav__links {
-    justify-content: flex-start;
-    gap: 0.9rem;
-    padding: calc(4.25rem + env(safe-area-inset-top)) 1.5rem
-      calc(1.25rem + env(safe-area-inset-bottom));
+    padding-top: calc(4.25rem + env(safe-area-inset-top));
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  }
+
+  .nav__links::after {
+    display: none;
+  }
+
+  .nav__links::before {
+    font-size: 5rem;
   }
 
   .nav__link {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     letter-spacing: 0.12em;
     line-height: 1.3;
-    padding-block: 0.2rem;
+    padding-block: 0.55rem;
+  }
+}
+
+/* Reduced motion keeps every navigation state reachable but removes the
+   decorative movement and the staggered menu delays. */
+@media (prefers-reduced-motion: reduce) {
+  .nav__brand:hover .nav__logo,
+  .nav__brand:focus-visible .nav__logo {
+    transform: none;
+  }
+
+  .nav__links,
+  .nav__link,
+  .nav__link::after,
+  .nav__toggle span,
+  .nav__toggle::before {
+    transition-delay: 0s !important;
+  }
+
+  .nav__links {
+    clip-path: none;
+  }
+
+  .nav__link {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -790,6 +1035,7 @@ main,
   flex-direction: column;
   text-decoration: none;
   color: inherit;
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .project__media {
@@ -798,6 +1044,16 @@ main,
   overflow: hidden;
   background: var(--color-surface);
   margin-bottom: 0.9rem;
+  transition: box-shadow 0.45s ease;
+}
+
+.project__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  transition: border-color 0.35s ease;
+  pointer-events: none;
 }
 
 .project__media img {
@@ -808,9 +1064,24 @@ main,
   transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.project--linked:hover .project__media img,
-.project--linked:focus-within .project__media img {
-  transform: scale(1.035);
+.project:hover,
+.project:focus-within {
+  transform: translateY(-3px);
+}
+
+.project:hover .project__media,
+.project:focus-within .project__media {
+  box-shadow: 0 18px 40px rgba(3, 16, 26, 0.3);
+}
+
+.project:hover .project__media::after,
+.project:focus-within .project__media::after {
+  border-color: var(--color-accent-border);
+}
+
+.project:hover .project__media img,
+.project:focus-within .project__media img {
+  transform: scale(1.03);
 }
 
 .project__body {
@@ -999,6 +1270,25 @@ main,
   .projects-grid {
     grid-template-columns: 1fr;
     row-gap: clamp(2.6rem, 7vw, 3.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project,
+  .project__media,
+  .project__media::after,
+  .project__media img {
+    transition: none;
+  }
+
+  .project:hover,
+  .project:focus-within {
+    transform: none;
+  }
+
+  .project:hover .project__media img,
+  .project:focus-within .project__media img {
+    transform: none;
   }
 }
 
@@ -1204,11 +1494,13 @@ main,
   padding-block: var(--section-pad-y);
 }
 
-/* Milestone types are not a supported chronology. The rail is presentational;
-   the list order is not a claim about dates. */
+/* Milestone types are not dates. The list order is preserved and the rail
+   progresses through those existing milestones rather than inventing a
+   chronology. The fill value is written by EducationSection on scroll. */
 .education-list {
   --education-rail: 1.5rem;
   --education-line-x: 0.5rem;
+  --timeline-progress: 0;
 
   position: relative;
   max-width: 60rem;
@@ -1218,33 +1510,43 @@ main,
   border-top: 1px solid var(--color-border);
 }
 
-/* The line is drawn once, when the list first enters the viewport. */
-.education-list::before {
+/* The unfilled rail stays quiet; the accent fill is a separate layer so the
+   line can track the visitor's progress without a one-off draw animation. */
+.education-list::before,
+.education-list::after {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
   left: var(--education-line-x);
   width: 1px;
-  background: linear-gradient(
-    to bottom,
-    var(--color-accent-border) 0%,
-    var(--color-border) 14%,
-    var(--color-border) 92%,
-    transparent 100%
-  );
-  transform: scaleY(0);
-  transform-origin: top center;
-  transition: transform 1.15s cubic-bezier(0.22, 0.61, 0.36, 1) 0.05s;
   pointer-events: none;
 }
 
-.education-list.is-in::before {
-  transform: scaleY(1);
+.education-list::before {
+  background: linear-gradient(
+    to bottom,
+    var(--color-border) 0%,
+    var(--color-border) 92%,
+    transparent 100%
+  );
+}
+
+.education-list::after {
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent) 0%,
+    var(--color-accent-border) 100%
+  );
+  transform: scaleY(var(--timeline-progress));
+  transform-origin: top center;
+  will-change: transform;
+  z-index: 0;
 }
 
 .education-entry {
   position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(10rem, 0.38fr) minmax(0, 1fr);
   gap: 0.65rem clamp(2rem, 5vw, 4rem);
@@ -1267,13 +1569,15 @@ main,
   transform: scale(0.4);
   transition:
     opacity 0.45s ease,
-    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.45s ease;
   pointer-events: none;
 }
 
 .education-entry.is-in::before {
   opacity: 1;
   transform: scale(1);
+  box-shadow: 0 0 0 3px rgba(22, 112, 187, 0.12);
 }
 
 .education-entry:nth-child(2)::before {
@@ -1340,14 +1644,14 @@ main,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .education-list::before {
+  .education-list::after {
     transform: scaleY(1);
-    transition: none;
   }
 
   .education-entry::before {
     opacity: 1;
     transform: none;
+    box-shadow: none;
     transition: none;
     transition-delay: 0s;
   }
@@ -1400,13 +1704,54 @@ main,
   border: 1px solid var(--color-border);
   transition:
     border-color 0.3s ease,
-    transform 0.3s ease;
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* A short accent rule confirms the card is the thing being inspected; the
+   card itself is not a link, so it keeps the default cursor. */
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
 }
 
 .service-card:hover,
 .service-card:focus-within {
   border-color: var(--color-accent-border);
+  background: #36425f;
   transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(3, 16, 26, 0.22);
+}
+
+.service-card:hover::after,
+.service-card:focus-within::after {
+  transform: scaleX(1);
+}
+
+.service-card:hover .service-card__index,
+.service-card:focus-within .service-card__index {
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card,
+  .service-card::after,
+  .service-card__index {
+    transition: none;
+  }
+
+  .service-card:hover,
+  .service-card:focus-within {
+    transform: none;
+  }
 }
 
 .service-card__meta {
@@ -1422,6 +1767,7 @@ main,
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .service-card__brand {
