@@ -11,13 +11,16 @@ export function Reveal({
   as: Tag = 'div',
   once = true,
   styleDelay = 0,
+  observeOnly = false,
 }: {
   children: ReactNode;
   className?: string;
-  as?: 'div' | 'section' | 'header' | 'figure' | 'article' | 'li';
+  as?: 'div' | 'section' | 'header' | 'figure' | 'article' | 'li' | 'ol';
   once?: boolean;
   /** Small stagger index; adds transition-delay when revealed. */
   styleDelay?: number;
+  /** Add `is-in` without the shared fade/translate styling. */
+  observeOnly?: boolean;
 }) {
   const ref = useRef<HTMLElement>(null);
 
@@ -28,28 +31,33 @@ export function Reveal({
       el.classList.add('is-in');
       return;
     }
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            el.classList.add('is-in');
-            if (once) io.unobserve(el);
-          } else if (!once) {
-            el.classList.remove('is-in');
+    try {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              el.classList.add('is-in');
+              if (once) io.unobserve(el);
+            } else if (!once) {
+              el.classList.remove('is-in');
+            }
           }
-        }
-      },
-      { rootMargin: '0px 0px -6% 0px', threshold: 0.06 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
+        },
+        { rootMargin: '0px 0px -6% 0px', threshold: 0.06 },
+      );
+      io.observe(el);
+      return () => io.disconnect();
+    } catch {
+      // If the observer cannot be created or attached, keep content visible.
+      el.classList.add('is-in');
+    }
   }, [once]);
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Tag
       ref={ref as any}
-      className={`reveal ${className}`.trim()}
+      className={`${observeOnly ? '' : 'reveal '}${className}`.trim()}
       style={styleDelay ? { transitionDelay: `${Math.min(styleDelay, 6) * 90}ms` } : undefined}
     >
       {children}

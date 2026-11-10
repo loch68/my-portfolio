@@ -214,7 +214,7 @@ export function Nav() {
   return (
     <header className={`nav${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
       <div className="nav__wrapper">
-        <a className="nav__brand" href="#top" aria-label="Lochgraphy — back to top" onClick={() => setOpen(false)}>
+        <a className="nav__brand" href="#top" aria-label="Lochgraphy - back to top" onClick={() => setOpen(false)}>
           <img className="nav__logo" src={IMAGES.logo} alt="" width={26} height={26} />
           <span className="nav__wordmark">Lochgraphy</span>
         </a>

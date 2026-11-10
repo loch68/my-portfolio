@@ -223,7 +223,14 @@ void main() {
       * smoothstep(.04, .54, softMask) * mix(.16, .05, uLightTheme);
     float spillGlyph = clamp(inkAbove.b / max(inkAbove.a, .01), 0., 1.);
     vec3 spillColor = mix(vec3(.88, .89, .93), vec3(.66, .72, .91), spillGlyph);
-    outColor = vec4(spillColor, lowerSpill);
+    // Write RGB only where the spill can actually be seen. Writing spillColor
+    // under near-zero alpha leaves a full-canvas RGB rectangle in the drawing
+    // buffer that iOS composites visibly.
+    if (lowerSpill < (2.0 / 255.0)) {
+      outColor = vec4(0.0);
+    } else {
+      outColor = vec4(spillColor, lowerSpill);
+    }
     return;
   }
 

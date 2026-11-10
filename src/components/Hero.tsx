@@ -80,8 +80,14 @@ export function Hero() {
         </h1>
 
         <p className="hero__sub">
-          I create digital experiences, visual content, and practical solutions
-          that help ideas and businesses move forward.
+          <span className="hero__sub-copy">
+            Web development, creative production, and hospitality support.
+          </span>
+          <span className="hero__identity">
+            <span className="hero__identity-item">Web Development</span>
+            <span className="hero__identity-item">Creative Production</span>
+            <span className="hero__identity-item">Hospitality</span>
+          </span>
         </p>
 
         <a className="editorial-link" href="#work">

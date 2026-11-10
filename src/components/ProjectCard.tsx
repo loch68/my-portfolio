@@ -19,21 +19,26 @@ export function ProjectCard({ project }: { project: Project }) {
         <p className="project__metarow">
           <span className="project__index">{project.index}</span>
           <span className="project__category">{project.category}</span>
+          {project.alias && <span className="project__alias">{project.alias}</span>}
+          {project.status && (
+            <span
+              className={`project__status${project.status.kind === 'construction' ? ' project__status--construction' : ''}`}
+            >
+              <span className="dot" aria-hidden="true" />
+              {project.status.label}
+            </span>
+          )}
         </p>
-        {project.status?.kind === "construction" && (
-          <p className="project__status project__status--construction">
-            <span className="dot" aria-hidden="true" />
-            {project.status.label}
-          </p>
-        )}
-        {project.status && project.status.kind !== "construction" && (
-          <p className="project__status">
-            <span className="dot" aria-hidden="true" />
-            {project.status.label}
-          </p>
-        )}
-        <h3 className="project__title">{project.title}</h3>
-        <p className="project__desc">{project.description}</p>
+        <h3 className="project__title">
+          {project.title}
+          {project.link && (
+            <span className="project__title-mark" aria-hidden="true">
+              {project.link.external ? '↗' : '→'}
+            </span>
+          )}
+        </h3>
+        <p className="project__desc project__desc--short">{project.descriptionShort}</p>
+        <p className="project__desc project__desc--full">{project.description}</p>
         <ul className="project__tags" role="list">
           {project.tags.map((tag) => (
             <li key={tag}>{tag}</li>

@@ -24,8 +24,12 @@ export interface Project {
   index: string;
   title: string;
   category: string;
+  /** Secondary identifier shown beside the category when useful. */
+  alias?: string;
   status?: { kind: ProjectStatus; label: string };
   description: string;
+  /** Concise card copy used below the desktop breakpoint. */
+  descriptionShort: string;
   tags: string[];
   image?: {
     src: string;
@@ -42,21 +46,23 @@ export const PROJECTS: Project[] = [
     id: 'ceylon-pathways',
     index: '01',
     title: 'Ceylon Pathways',
-    category: 'Travel & Tourism · Web Development',
+    category: 'Travel & Tourism',
     status: { kind: 'live', label: 'Live' },
     description:
-      'A travel-focused digital experience presenting Sri Lankan tourism through a dedicated online platform — private van tours and scenic journeys, from site architecture to guest-facing detail.',
-    tags: ['Travel & Tourism', 'Website Development', 'Digital Experience'],
+      'A Sri Lanka tourism website for private van tours and scenic journeys, from site architecture to guest-facing detail.',
+    descriptionShort:
+      'Sri Lanka tourism website for private van tours and scenic journeys.',
+    tags: ['Website Development', 'Private van tours', 'Scenic journeys'],
     image: {
       src: asset('projects/ceylon-pathways.jpg'),
       alt: 'Ceylon Pathways travel website hero with a group photo of travelers and the headline "Explore Sri Lanka with Comfort & Confidence"',
       width: 1600,
       height: 843,
-      caption: 'ceylonpathways.vercel.app — live site',
+      caption: 'ceylon-pathways.vercel.app — live site',
     },
     link: {
       href: 'https://ceylon-pathways.vercel.app',
-      label: 'Visit Live Website',
+      label: 'Visit website',
       external: true,
     },
   },
@@ -64,10 +70,12 @@ export const PROJECTS: Project[] = [
     id: 'telca-solutions-cctv',
     index: '02',
     title: 'Telca Solutions CCTV',
-    category: 'Web Development · Digital Business Solution',
+    category: 'Web Development',
     status: { kind: 'construction', label: 'Under Construction' },
     description:
-      'A business application for CCTV quotation workflows: browse a product catalogue by category, build a quotation selection, submit a quotation request, and manage the catalogue from an admin interface.',
+      'A CCTV quotation application with a categorized product catalogue, quotation builder, request submission, and admin catalogue management.',
+    descriptionShort:
+      'CCTV catalogue and quotation system with an admin interface.',
     tags: ['Next.js', 'TypeScript', 'Supabase', 'Cloudinary'],
     image: {
       src: asset('projects/telca-cctv.jpg'),
@@ -81,26 +89,29 @@ export const PROJECTS: Project[] = [
     id: 'nethwin-bookshop',
     index: '03',
     title: 'Nethwin Bookshop',
-    category: 'Web Development · Bookshop Digital Project',
+    category: 'Web Development',
     description:
-      'Digital presence for NethwinLK Printers (Pvt) Ltd. — a print-on-demand service and online bookshop where customers can explore the book collection and place print orders.',
-    tags: ['Web Development', 'E-commerce', 'Print on Demand'],
+      'A print-on-demand service and online bookshop for NethwinLK Printers (Pvt) Ltd., where customers can explore the book collection and place print orders.',
+    descriptionShort: 'Print-on-demand bookshop for NethwinLK Printers.',
+    tags: ['E-commerce', 'Print on Demand'],
     image: {
       src: asset('projects/nethwin-bookshop.jpg'),
       alt: 'Green and white NethwinLK landing page with print-on-demand and bookshop entry cards',
       width: 1600,
       height: 879,
-      caption: 'nethwinlk.com — print & bookshop project',
+      caption: 'print & bookshop project — NethwinLK Printers',
     },
   },
   {
     id: 'ps-portfolio',
     index: '04',
-    title: 'Campus Portfolio (PS Portfolio)',
-    category: 'Academic · Personal Portfolio Project',
+    title: 'Campus Portfolio',
+    alias: 'PS Portfolio',
+    category: 'Academic',
     description:
-      'A curated showcase of academic work, teamwork, and creative technology projects built through college and community initiatives.',
-    tags: ['Academic Portfolio', 'Student Work', 'Creative Technology'],
+      'Academic, teamwork, and creative technology projects built through college and community initiatives.',
+    descriptionShort: 'Academic and community technology projects.',
+    tags: ['Student Work', 'Creative Technology'],
     image: {
       src: asset('projects/ps-portfolio.jpg'),
       alt: 'Student showcase portfolio landing page with a classical statue backdrop and the title "Professional Skills Portfolio"',
@@ -116,29 +127,43 @@ export interface ServiceCategory {
   title: string;
   brand?: string;
   summary: string;
+  /** The short labels shown before the disclosure is opened. */
+  highlights: string[];
+  /** The complete list shown inside "What's included". */
   details: string[];
+  /** Platform names presented as a compact metadata row. */
+  platforms?: string[];
 }
 
 export const SERVICES: ServiceCategory[] = [
   {
     index: '01',
     title: 'Web Development',
-    summary:
-      'Building practical websites and digital experiences for businesses and projects.',
+    summary: 'Websites and digital product interfaces for businesses and projects.',
+    highlights: [
+      'Website design and development',
+      'Frontend development',
+      'Business websites',
+      'Digital product interfaces',
+    ],
     details: [
       'Website design and development',
       'Frontend development',
       'Business websites',
       'Landing pages',
       'Digital product interfaces',
-      'Practical digital solutions',
     ],
   },
   {
     index: '02',
     title: 'Branding & Design',
-    summary:
-      'Helping businesses communicate their identity through thoughtful visual design.',
+    summary: 'Brand identity, graphic design, and marketing materials.',
+    highlights: [
+      'Brand identity',
+      'Logo and graphic design',
+      'Visual communication',
+      'Marketing materials',
+    ],
     details: [
       'Brand identity',
       'Logo and graphic design',
@@ -151,13 +176,17 @@ export const SERVICES: ServiceCategory[] = [
     index: '03',
     title: 'Video Editing & Creative Production',
     brand: 'LOCHGRAPHY',
-    summary:
-      'Creative production and visual storytelling for brands, individuals, and digital platforms.',
+    summary: 'Video, photography, and visual content for brands and digital platforms.',
+    highlights: [
+      'Video editing',
+      'Photography',
+      'Videography',
+      'Promotional videos',
+    ],
     details: [
       'Video editing',
       'Photography',
       'Videography',
-      'Visual storytelling',
       'Creative content production',
       'Promotional videos',
       'Social media visual content',
@@ -168,31 +197,35 @@ export const SERVICES: ServiceCategory[] = [
     title: 'Travel & Hospitality Digital Support',
     brand: 'Nuwara Eliya Travel & Hospitality Consultancy',
     summary:
-      'Supporting accommodation and tourism businesses with their online presence and booking operations.',
+      'Online presence and booking support for accommodation and tourism businesses.',
+    platforms: ['Booking.com', 'Agoda', 'Airbnb', 'TripAdvisor', 'Google Business'],
+    highlights: [
+      'Accommodation listings',
+      'Property descriptions',
+      'Booking operations',
+    ],
     details: [
-      'Booking.com management',
-      'Agoda listing management',
-      'Airbnb presence support',
-      'TripAdvisor presence support',
-      'Google Business support',
       'Accommodation listing improvements',
       'Property-description writing',
-      'Tourism business digital presence',
       'Online booking operations',
     ],
   },
   {
     index: '05',
     title: 'Digital Marketing & Content',
-    summary:
-      'Supporting businesses with digital communication, content, and online promotion.',
+    summary: 'Content, copywriting, and social media for businesses.',
+    highlights: [
+      'Social media management',
+      'Content writing',
+      'Digital copywriting',
+      'Website content',
+    ],
     details: [
       'Social media management',
       'Content writing',
       'Digital copywriting',
       'Website content',
       'Promotional content',
-      'Business-focused digital communication',
     ],
   },
 ] as const;
@@ -200,9 +233,8 @@ export const SERVICES: ServiceCategory[] = [
 export interface EducationEntry {
   institution: string;
   qualification: string;
+  /** A type label, not a date. The available data has no chronology. */
   period: string;
-  status: string;
-  detail?: string;
 }
 
 export const EDUCATION: EducationEntry[] = [
@@ -210,34 +242,18 @@ export const EDUCATION: EducationEntry[] = [
     institution: 'Gamini Central College, Nuwara Eliya',
     qualification: 'GCE Advanced Level & Ordinary Level',
     period: 'School education',
-    status: 'Completed',
   },
   {
-    institution: 'NIBM — National Institute of Business Management',
+    institution: 'NIBM (National Institute of Business Management)',
     qualification: 'Computer Science Certification',
     period: 'Professional certification',
-    status: 'Completed',
   },
   {
-    institution: 'SLIIT City University — University of Bedfordshire partnership',
+    institution: 'SLIIT City University (University of Bedfordshire partnership)',
     qualification: 'HND in Information Technology',
     period: 'Higher National Diploma',
-    status: 'Completed',
   },
 ];
-
-/**
- * Figures shown in About. The first three are derived from the actual content
- * arrays so they can never drift from the work they describe. The line count
- * is the measured project-source total (src/, index.html, vite.config.ts,
- * cloc, 2026-11-06) and should be refreshed when the codebase changes.
- */
-export const PORTFOLIO_STATS = [
-  { label: 'Selected projects', value: PROJECTS.length },
-  { label: 'Service categories', value: SERVICES.length },
-  { label: 'Education milestones', value: EDUCATION.length },
-  { label: 'Lines of code', value: 4621 },
-] as const;
 
 export interface SocialLink {
   label: string;

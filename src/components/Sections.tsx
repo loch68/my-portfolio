@@ -1,16 +1,16 @@
+import { useEffect, useRef } from 'react';
 import {
   CONTACT,
   EDUCATION,
-  PORTFOLIO_STATS,
   PROJECTS,
   SECTION_LINKS,
   SERVICES,
 } from '../data/content';
-import { CountUp } from './CountUp';
 import { ServiceCard } from './ServiceCard';
 import { ProjectCard } from './ProjectCard';
 import { Reveal } from './Reveal';
 import { SectionHead } from './SectionHead';
+import { useMediaQuery } from './useMediaQuery';
 import { IMAGES } from '../assets';
 
 const MailIcon = () => (
@@ -69,7 +69,6 @@ export function ProjectsSection() {
           id="work-label"
           label="Projects & Engagements"
           index="01 · Selected Work"
-          support="Selected work, creative projects, and digital experiences that show how I work."
         />
 
         <div className="projects-grid">
@@ -85,6 +84,15 @@ export function ProjectsSection() {
 }
 
 export function AboutSection() {
+  const desktop = useMediaQuery('(min-width: 721px)');
+  const moreRef = useRef<HTMLDetailsElement>(null);
+
+  // The capability labels carry the identity on mobile. The supporting
+  // paragraphs remain visible on desktop and open on demand on mobile.
+  useEffect(() => {
+    if (moreRef.current) moreRef.current.open = desktop;
+  }, [desktop]);
+
   return (
     <section className="section section--about" id="about" aria-labelledby="about-label" tabIndex={-1}>
       <div className="container">
@@ -109,38 +117,53 @@ export function AboutSection() {
           <div className="about__content">
             <Reveal>
               <p className="about__statement">
-                One identity across several crafts. I build digital experiences,
-                produce visual stories, and run the digital side of hospitality
-                businesses — not four separate jobs, but one way a studio works.
+                One identity across several crafts. I build websites, create
+                visual content, and support hospitality businesses online.
               </p>
             </Reveal>
 
-            <Reveal className="about__copy">
-              <p>
-                On the technical side I design and build websites and turn
-                business requirements into practical digital solutions.
-              </p>
-              <p>
-                On the creative side, <strong>Lochgraphy</strong> is where
-                photography, videography, editing, and brand design live. In
-                between, I support travel and hospitality businesses with booking
-                platforms, property listings, and the online presence guests
-                actually see.
-              </p>
+            <Reveal className="about__capabilities">
+              <ul className="about__capability-list" role="list">
+                <li className="about__capability">
+                  <span className="about__capability-label">Web development</span>
+                  <span className="about__capability-detail">
+                    Websites and digital product interfaces.
+                  </span>
+                </li>
+                <li className="about__capability">
+                  <span className="about__capability-label">Creative production</span>
+                  <span className="about__capability-detail">
+                    Photography, videography, editing, and brand design.
+                  </span>
+                </li>
+                <li className="about__capability">
+                  <span className="about__capability-label">Hospitality support</span>
+                  <span className="about__capability-detail">
+                    Booking platforms, property listings, and online presence.
+                  </span>
+                </li>
+              </ul>
+            </Reveal>
+
+            <Reveal className="about__more-wrap">
+              <details className="about__more" ref={moreRef}>
+                <summary>More about my work</summary>
+                <div className="about__copy">
+                  <p>
+                    On the technical side, I design and build websites from
+                    business requirements.
+                  </p>
+                  <p>
+                    Through <strong>Lochgraphy</strong>, I produce photography,
+                    videography, editing, and brand design. I also support travel
+                    and hospitality businesses with booking platforms, property
+                    listings, and the online presence guests see.
+                  </p>
+                </div>
+              </details>
             </Reveal>
           </div>
         </div>
-
-        <Reveal className="about__stats-wrap">
-          <ul className="stats" role="list">
-            {PORTFOLIO_STATS.map((stat) => (
-              <li className="stat" key={stat.label}>
-                <CountUp value={stat.value} />
-                <span className="stat__label">{stat.label}</span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
       </div>
     </section>
   );
@@ -152,16 +175,13 @@ export function EducationSection() {
       <div className="container">
         <SectionHead id="education-label" label="Education" index="03 · Background" />
 
-        {/* The labels describe milestone types, not a chronology. A plain
-            divided list avoids implying a sequence the available data cannot
-            support. */}
-        <ol className="education-list">
+        {/* The labels describe milestone types, not a chronology. The timeline
+            rail is presentational; the list order is not a claim about dates. */}
+        <Reveal as="ol" className="education-list" observeOnly>
           {EDUCATION.map((entry, i) => (
             <Reveal as="li" key={entry.institution} className="education-entry" styleDelay={i}>
               <div className="education-entry__meta">
                 <p className="education__period">{entry.period}</p>
-                <p className="education__status">{entry.status}</p>
-                {entry.detail && <p className="education__detail">{entry.detail}</p>}
               </div>
               <div className="education-entry__content">
                 <h3 className="education__institution">{entry.institution}</h3>
@@ -169,7 +189,7 @@ export function EducationSection() {
               </div>
             </Reveal>
           ))}
-        </ol>
+        </Reveal>
       </div>
     </section>
   );
@@ -183,7 +203,6 @@ export function ServicesSection() {
           id="services-label"
           label="Services"
           index="04 · Capabilities"
-          support="A professional overview of the work I offer — small-scale, honest, and discussed directly with clients."
         />
 
         <ul className="service-index" role="list">
@@ -193,6 +212,13 @@ export function ServicesSection() {
             </Reveal>
           ))}
         </ul>
+
+        <Reveal className="services__footer">
+          <a className="editorial-link services__cta" href="#contact">
+            Discuss a service
+            <span aria-hidden="true">→</span>
+          </a>
+        </Reveal>
       </div>
     </section>
   );
@@ -209,10 +235,6 @@ export function ContactSection() {
         <div className="contact__inner">
           <Reveal className="contact__intro">
             <h3 className="contact__label">Let's work together.</h3>
-            <p>
-              Have a project in mind, need a digital solution, or want to
-              collaborate? Get in touch and let's discuss what we can create.
-            </p>
             <div className="contact__direct">
               <a className="contact__direct-item" href={mailHref}>
                 <MailIcon />
@@ -248,7 +270,7 @@ export function ContactSection() {
             </ul>
             <p className="contact__cv">
               <a href={IMAGES.cv} download className="editorial-link">
-                Download CV — PDF
+                Download CV (PDF)
               </a>
             </p>
           </Reveal>
@@ -261,7 +283,7 @@ export function ContactSection() {
 export function Footer() {
   return (
     <footer className="footer">
-      <span className="footer__identity">Pasindu Lochana Rathnayaka — Lochgraphy</span>
+      <span className="footer__identity">Pasindu Lochana Rathnayaka - Lochgraphy</span>
       <nav className="footer__nav" aria-label="Footer">
         <ul className="footer__links" role="list">
           {SECTION_LINKS.map((link) => (

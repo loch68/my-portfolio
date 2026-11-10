@@ -48,6 +48,8 @@ uniform float u_saturation;
 uniform float u_brightness;
 uniform float u_contrast;
 uniform float u_disk;
+uniform float u_portrait;
+uniform float u_mobile_framing;
 uniform vec3  u_colorA;
 uniform vec3  u_colorB;
 uniform vec3  u_colorC;
@@ -139,7 +141,12 @@ vec3 applyTonemap(vec3 col) {
 }
 
 void main() {
-  float uvScale = max(1.0 / u_resolution.y, (16.0 / 9.0) / u_resolution.x);
+  // The 16:9 safe area is width-fitted on landscape/desktop screens. Portrait
+  // phones would then see a very tall UV window and a small singularity, so
+  // they use a narrower framing aspect instead. mix() keeps the desktop
+  // expression bit-identical when u_portrait is 0.
+  float framing = mix(16.0 / 9.0, u_mobile_framing, u_portrait);
+  float uvScale = max(1.0 / u_resolution.y, framing / u_resolution.x);
   vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) * uvScale;
   vec3 col = sampleGraded(uv);
   col = applyTonemap(col);
@@ -166,6 +173,8 @@ const UNIFORM_NAMES = [
   'u_brightness',
   'u_contrast',
   'u_disk',
+  'u_portrait',
+  'u_mobile_framing',
   'u_colorA',
   'u_colorB',
   'u_colorC',
@@ -204,6 +213,11 @@ const CONTRAST_MAX = 1.04;
 const SCALE_MIN = 1.0;
 const SCALE_MAX = 1.14;
 const SMOOTHING_TAU = 0.42;
+// Portrait phones fit a narrower framing aspect than the 16:9 desktop safe
+// area. The singularity and disk then fill the hero instead of sitting in a
+// tall, mostly empty UV window.
+const MOBILE_FRAMING = 0.8;
+const MOBILE_MAX_WIDTH = 720;
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 const smoothstep = (value: number) => value * value * (3 - 2 * value);
@@ -330,6 +344,8 @@ export function SiteBackground() {
       gl.uniform1f(u.u_brightness ?? null, 1.0);
       gl.uniform1f(u.u_contrast ?? null, 1.04);
       gl.uniform1f(u.u_disk ?? null, 1.0);
+      gl.uniform1f(u.u_portrait ?? null, 0.0);
+      gl.uniform1f(u.u_mobile_framing ?? null, MOBILE_FRAMING);
       gl.uniform3f(u.u_colorA ?? null, COLOR_A[0], COLOR_A[1], COLOR_A[2]);
       gl.uniform3f(u.u_colorB ?? null, COLOR_B[0], COLOR_B[1], COLOR_B[2]);
       gl.uniform3f(u.u_colorC ?? null, COLOR_C[0], COLOR_C[1], COLOR_C[2]);
@@ -496,6 +512,11 @@ export function SiteBackground() {
       const cssHeight = canvas.clientHeight || window.innerHeight;
       const width = Math.max(1, Math.round(cssWidth * dprCap));
       const height = Math.max(1, Math.round(cssHeight * dprCap));
+      // Mobile-only framing: portrait phones up to the site's compact
+      // breakpoint. Every other viewport keeps the 16:9 safe area. Set the
+      // flag before the early return so an aspect flip can never be skipped.
+      const portrait = cssHeight > cssWidth && cssWidth <= MOBILE_MAX_WIDTH;
+      gl.uniform1f(uniforms.u_portrait ?? null, portrait ? 1 : 0);
       if (!force && canvas.width === width && canvas.height === height) return false;
       canvas.width = width;
       canvas.height = height;
