@@ -54,10 +54,10 @@ export const PROJECTS: Project[] = [
       'Sri Lanka tourism website for private van tours and scenic journeys.',
     tags: ['Website Development', 'Private van tours', 'Scenic journeys'],
     image: {
-      src: asset('projects/ceylon-pathways.jpg'),
-      alt: 'Ceylon Pathways travel website hero with a group photo of travelers and the headline "Explore Sri Lanka with Comfort & Confidence"',
+      src: asset('images/projectImages/ceylonpathways.webp'),
+      alt: 'Ceylon Pathways redesigned travel website hero for private van tours and scenic journeys in Sri Lanka',
       width: 1600,
-      height: 843,
+      height: 874,
       caption: 'ceylon-pathways.vercel.app — live site',
     },
     link: {
