@@ -27,7 +27,7 @@ function useCompactMark() {
 }
 
 /**
- * Hero — editorial intro over the site-wide procedural black-hole background.
+ * Hero - editorial intro over the site-wide procedural black-hole background.
  *
  * The background is owned by <SiteBackground /> at the application level, so
  * this section only owns the LOCH identity, typography, CTAs and scroll cue.

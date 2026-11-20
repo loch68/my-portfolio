@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * SiteBackground — one persistent WebGL2 black-hole environment behind the
+ * SiteBackground - one persistent WebGL2 black-hole environment behind the
  * entire portfolio.
  *
  * The shader is the Phase 1 adaptation of the Shader Studio "Gargantua
@@ -559,7 +559,7 @@ export function SiteBackground() {
 
     const onContextRestored = () => {
       contextLost = false;
-      // Every handle from the old context is invalid — rebuild from scratch.
+      // Every handle from the old context is invalid - rebuild from scratch.
       uniforms = {};
       program = null;
       buffer = null;

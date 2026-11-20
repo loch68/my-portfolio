@@ -87,7 +87,7 @@ I'm a **Software Engineering Student & Beginner Full Stack Developer** currently
 
 ## 🏆 Testimonial
 > "Pasindu is a dedicated learner and a talented developer. Highly motivated and creative!"  
-— **Lashan Herath**  
+- **Lashan Herath**
 
 ---
 

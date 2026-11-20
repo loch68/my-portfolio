@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LOCHGRAPHY — Personal portfolio of Pasindu Lochana Rathnayaka
+   LOCHGRAPHY - Personal portfolio of Pasindu Lochana Rathnayaka
    Dark editorial system · one webfont · restrained motion
    --------------------------------------------------------------------------
    Palette lives in custom properties below so it can be re-tuned easily
@@ -9,7 +9,7 @@
 /* ---------- 1. Tokens ---------- */
 
 :root {
-  /* Color — neutral dark foundation (pairs with the silver logo mark).
+  /* Color - neutral dark foundation (pairs with the silver logo mark).
      Accent is a low-saturation champagne bronze; swap these variables
      to re-grade the whole site. */
   --bg: #0b0b0c;
@@ -261,7 +261,7 @@ em { font-style: normal; }
     backdrop-filter var(--speed) var(--ease);
 }
 
-/* Glass appears only once the page is scrolled — the hero stays clean */
+/* Glass appears only once the page is scrolled - the hero stays clean */
 .nav.is-scrolled {
   background: rgba(15, 15, 17, 0.72);
   border-color: var(--border);
@@ -719,7 +719,7 @@ em { font-style: normal; }
   align-items: start;
 }
 
-/* Profile panel — glass card standing in until a real photo is supplied.
+/* Profile panel - glass card standing in until a real photo is supplied.
    Replace the mark with an <img> portrait when available. */
 .about__panel {
   position: sticky;
@@ -977,7 +977,7 @@ a.channel__value:hover {
 
 .quote footer { color: var(--text-faint); }
 
-/* Form — the only heavy glass surface, kept to a single panel */
+/* Form - the only heavy glass surface, kept to a single panel */
 .contact__form {
   padding: clamp(1.6rem, 3vw, 2.2rem);
   border-radius: var(--radius-lg);

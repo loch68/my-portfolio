@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<title>WebGL compositing diagnostic — premultipliedAlpha A/B</title>
+<title>WebGL compositing diagnostic - premultipliedAlpha A/B</title>
 <style>
   :root { color-scheme: dark; }
   body {
@@ -53,7 +53,7 @@
 </style>
 </head>
 <body>
-<h1>WebGL canvas compositing diagnostic — LOCH box investigation</h1>
+<h1>WebGL canvas compositing diagnostic - LOCH box investigation</h1>
 <p style="font-size:13px;line-height:1.6;color:#cdd6e4">
 Two identical WebGL canvases draw the same stylized LOCH word with a stylized
 
@@ -74,12 +74,12 @@ region will cover it. This tests what the <em>compositor</em> shows, not framebu
 
 <div class="panels">
   <section class="panel">
-    <h2>Canvas A — alpha:true, premultipliedAlpha:false (production config)</h2>
+    <h2>Canvas A - alpha:true, premultipliedAlpha:false (production config)</h2>
     <div class="checker"><canvas id="canvasA" width="680" height="180"></canvas></div>
     <div class="meta" id="metaA">initializing…</div>
   </section>
   <section class="panel">
-    <h2>Canvas B — alpha:true, premultipliedAlpha:true (spec default)</h2>
+    <h2>Canvas B - alpha:true, premultipliedAlpha:true (spec default)</h2>
     <div class="checker"><canvas id="canvasB" width="680" height="180"></canvas></div>
     <div class="meta" id="metaB">initializing…</div>
   </section>
@@ -195,7 +195,7 @@ void main(){
     const gl = canvas.getContext('webgl2', requested);
     const meta = document.getElementById('meta' + id);
     if (!gl) {
-      meta.textContent = 'WebGL2 unavailable in this browser — diagnose not possible.';
+      meta.textContent = 'WebGL2 unavailable in this browser - diagnose not possible.';
       return null;
     }
     const granted = gl.getContextAttributes();

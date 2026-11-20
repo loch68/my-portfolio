@@ -7,6 +7,7 @@ import {
   SERVICES,
 } from '../data/content';
 import { ServiceCard } from './ServiceCard';
+import { CreativeShowcase } from './CreativeShowcase';
 import { ProjectCard } from './ProjectCard';
 import { Reveal } from './Reveal';
 import { SectionHead } from './SectionHead';
@@ -287,6 +288,8 @@ export function ServicesSection() {
             </Reveal>
           ))}
         </ul>
+
+        <CreativeShowcase />
 
         <Reveal className="services__footer">
           <a className="editorial-link services__cta" href="#contact">

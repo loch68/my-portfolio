@@ -1,7 +1,7 @@
 import { asset } from '../assets';
 
 /**
- * Central portfolio data — add a new project by appending one object here.
+ * Central portfolio data - add a new project by appending one object here.
  * No component changes required; the grid adapts automatically.
  *
  * Only include links that resolve to real destinations. When a project has
@@ -58,7 +58,7 @@ export const PROJECTS: Project[] = [
       alt: 'Ceylon Pathways redesigned travel website hero for private van tours and scenic journeys in Sri Lanka',
       width: 1600,
       height: 874,
-      caption: 'ceylon-pathways.vercel.app — live site',
+      caption: 'ceylon-pathways.vercel.app - live site',
     },
     link: {
       href: 'https://ceylon-pathways.vercel.app',
@@ -82,7 +82,7 @@ export const PROJECTS: Project[] = [
       alt: 'Telca Solutions CCTV website hero with a security camera against a cloudy sky and the headline "Security products, quoted for your project"',
       width: 1600,
       height: 857,
-      caption: 'catalogue & quotation system — in active development',
+      caption: 'catalogue & quotation system - in active development',
     },
   },
   {
@@ -99,7 +99,7 @@ export const PROJECTS: Project[] = [
       alt: 'Green and white NethwinLK landing page with print-on-demand and bookshop entry cards',
       width: 1600,
       height: 879,
-      caption: 'print & bookshop project — NethwinLK Printers',
+      caption: 'print & bookshop project - NethwinLK Printers',
     },
   },
   {
@@ -118,6 +118,24 @@ export const PROJECTS: Project[] = [
       width: 1600,
       height: 879,
       caption: 'student portfolio project',
+    },
+  },
+  {
+    id: 'eternal-essence-weddings',
+    index: '05',
+    title: 'Eternal Essence Weddings',
+    category: 'Wedding Photography',
+    description:
+      "A photography-led wedding site for Pasindu Yashod's Sri Lankan studio, covering photography, film, seven album stories, packages and direct enquiries.",
+    descriptionShort:
+      'Wedding photography and videography website for a Sri Lankan studio.',
+    tags: ['Next.js', 'React', 'TypeScript', 'CSS Modules'],
+    image: {
+      src: asset('projects/eternal-essence.webp'),
+      alt: 'Eternal Essence Weddings website hero with a dark wedding portrait, the headline "The day, as it felt." and enquiry actions',
+      width: 1600,
+      height: 908,
+      caption: 'wedding photography & videography website',
     },
   },
 ];
@@ -229,6 +247,207 @@ export const SERVICES: ServiceCategory[] = [
     ],
   },
 ] as const;
+
+export interface VideoEditingExample {
+  id: string;
+  title: string;
+  caption: string;
+  href: string;
+  image: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+}
+
+/** Music video edits shown alongside the video-editing service. */
+export const VIDEO_EDITING_EXAMPLES: VideoEditingExample[] = [
+  {
+    id: 'man-imi-bala',
+    title: 'Man Imani Bala',
+    caption:
+      'Performance-led edit with a dark tonal grade and animated Sinhala title lettering.',
+    href: 'https://youtu.be/yuQYpNkAbXM',
+    image: {
+      src: asset('creative/video-editing/man-imi-bala.webp'),
+      alt: 'Music video thumbnail for Man Imani Bala, showing a singer in profile beside gold Sinhala lettering on black',
+      width: 1000,
+      height: 562,
+    },
+  },
+  {
+    id: 'nasuna-se',
+    title: 'Nasuna Se',
+    caption:
+      'Night-shot edit shaped by atmospheric lighting and a measured cinematic pace.',
+    href: 'https://youtu.be/YWcuVnMd6X8',
+    image: {
+      src: asset('creative/video-editing/nasuna-se.webp'),
+      alt: 'Music video thumbnail for Nasuna Se, showing a figure seated by a street at night beneath pale title lettering',
+      width: 1000,
+      height: 562,
+    },
+  },
+];
+
+export interface DesignWork {
+  id: string;
+  caption: string;
+  image: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+}
+
+/** Graphic design and cover-art examples. Captions describe only visible work. */
+export const DESIGN_WORK: DesignWork[] = [
+  {
+    id: 'cover-art-01',
+    caption: 'Monochrome cover art with title bands and a gold badge.',
+    image: {
+      src: asset('creative/designs/cover-art-01.webp'),
+      alt: "Cover artwork with a black-and-white close-up of a person's eyes, grey title bands and a gold 8M views badge",
+      width: 1000,
+      height: 571,
+    },
+  },
+  {
+    id: 'cover-art-02',
+    caption: 'Portrait-led cover art with Sinhala typography.',
+    image: {
+      src: asset('creative/designs/cover-art-02.webp'),
+      alt: 'Cover artwork of a man holding a bunch of flowers, with Sinhala title lettering and a red 3 million views badge',
+      width: 1000,
+      height: 571,
+    },
+  },
+  {
+    id: 'cover-art-03',
+    caption: 'Outdoor cover art with hand-drawn lettering.',
+    image: {
+      src: asset('creative/designs/cover-art-03.webp'),
+      alt: "Cover artwork of a man painting at an easel beside a lake, with white hand-drawn lettering reading 'Forget Me, Don't Forget Us'",
+      width: 1000,
+      height: 582,
+    },
+  },
+  {
+    id: 'cover-art-04',
+    caption: 'Warm portrait cover art with a trending badge.',
+    image: {
+      src: asset('creative/designs/cover-art-04.webp'),
+      alt: 'Cover artwork of a couple sitting on grass with a guitar, with Sinhala lettering and a red Now Trending badge',
+      width: 790,
+      height: 452,
+    },
+  },
+  {
+    id: 'cover-art-05',
+    caption: 'Black-and-gold cover art with stylised Sinhala lettering.',
+    image: {
+      src: asset('creative/designs/cover-art-05.webp'),
+      alt: 'Cover artwork with a black-and-white profile portrait and stylised gold Sinhala lettering on black',
+      width: 1000,
+      height: 572,
+    },
+  },
+];
+
+export interface LogoAsset {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption: string;
+  surface: 'light' | 'dark';
+}
+
+export interface IdentityView {
+  id: string;
+  /** Compact segmented-control label. */
+  label: string;
+  /** Caption shown beneath the stage. */
+  caption: string;
+  /** One asset for a single application, two for a side-by-side comparison. */
+  assets: LogoAsset[];
+}
+
+/**
+ * Refined identity assets. Only variations supplied in the source artwork are
+ * listed; no recoloured or reconstructed marks are generated here.
+ */
+export const IDENTITY_SHOWCASE: {
+  views: IdentityView[];
+  system: LogoAsset;
+} = {
+  views: [
+    {
+      id: 'primary',
+      label: 'Primary',
+      caption: 'Primary lockup - white on dark',
+      assets: [
+        {
+          src: asset('logo/refined/lochgraphy-primary.png'),
+          alt: 'Refined LOCHGRAPHY primary logo with a white circular mark above the white LOCHGRAPHY wordmark on black',
+          width: 908,
+          height: 804,
+          caption: 'White on dark',
+          surface: 'dark',
+        },
+      ],
+    },
+    {
+      id: 'light',
+      label: 'Light',
+      caption: 'Light application - black on white',
+      assets: [
+        {
+          src: asset('logo/refined/lochgraphy-light.png'),
+          alt: 'Refined LOCHGRAPHY logo in black on a white background',
+          width: 908,
+          height: 804,
+          caption: 'Black on white',
+          surface: 'light',
+        },
+      ],
+    },
+    {
+      id: 'symbol',
+      label: 'Symbol',
+      caption: 'Symbol at icon scale - white on dark, black on white.',
+      assets: [
+        {
+          src: asset('logo/refined/lochgraphy-symbol-white.png'),
+          alt: 'Refined LOCHGRAPHY circular mark in white on a black background',
+          width: 636,
+          height: 636,
+          caption: 'White on dark',
+          surface: 'dark',
+        },
+        {
+          src: asset('logo/refined/lochgraphy-symbol-black.png'),
+          alt: 'Refined LOCHGRAPHY circular mark in black on a white background',
+          width: 636,
+          height: 636,
+          caption: 'Black on white',
+          surface: 'light',
+        },
+      ],
+    },
+  ],
+  system: {
+    src: asset('logo/refined/identity-system.png'),
+    alt: 'LOCHGRAPHY identity system board showing light, navy and dark logo applications, icon sizes, construction and business-card use',
+    width: 1600,
+    height: 1025,
+    caption:
+      'Identity system - light, navy and dark applications, icon scale and card use.',
+    surface: 'dark',
+  },
+};
 
 export interface EducationEntry {
   institution: string;

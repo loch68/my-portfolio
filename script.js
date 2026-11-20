@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LOCHGRAPHY — portfolio interactions
+   LOCHGRAPHY - portfolio interactions
    No dependencies. Every feature degrades gracefully without JavaScript:
    content is fully readable, the form falls back to plain mailto links.
    ========================================================================== */
@@ -110,7 +110,7 @@
   /* ---------- Contact form (mailto composer) ----------
      Honest no-backend delivery: the form validates input, then opens the
      visitor's own email client with the message pre-composed. There is no
-     server storage — the status line says exactly that. */
+     server storage - the status line says exactly that. */
 
   const form = $("#contactForm");
   const status = $("#formStatus");
@@ -151,13 +151,13 @@
         return;
       }
 
-      const subject = `[Portfolio] ${topic} — ${name}`;
+      const subject = `[Portfolio] ${topic} - ${name}`;
       const body = `Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\n${message}`;
       const href = `mailto:${CONFIG.recipient}?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
 
-      setStatus("Opening your email app with the message ready — just press send.", "ok");
+      setStatus("Opening your email app with the message ready - just press send.", "ok");
 
       // Trigger the mail client via a transient anchor: no popup window,
       // no empty tab, works even while the form element is being reset.
@@ -182,7 +182,7 @@
           e.target.classList.remove("is-invalid");
           if (!status.classList.contains("is-ok")) {
             setStatus(
-              "Opens your own email app with the message prepared — nothing is stored on this site.",
+              "Opens your own email app with the message prepared - nothing is stored on this site.",
               ""
             );
           }

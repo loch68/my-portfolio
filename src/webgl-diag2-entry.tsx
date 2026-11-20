@@ -1,10 +1,10 @@
 /**
- * TEMPORARY Stage-2 diagnostic entry — LOCH box investigation.
+ * TEMPORARY Stage-2 diagnostic entry - LOCH box investigation.
  *
  * Mounted only from /webgl-diag2.html served by the vite dev server.
  * Not part of the site bundle: index.html never imports this file, so the
- * production build is unchanged. It reuses the PRODUCTION modules untouched —
- * RefractedText, SiteBackground, and the global stylesheet — so the real
+ * production build is unchanged. It reuses the PRODUCTION modules untouched -
+ * RefractedText, SiteBackground, and the global stylesheet - so the real
  * shader, real glyph masks, real bundled font and the real Hero animation
  * sequence run here.
  *
@@ -120,7 +120,7 @@ type Stats = {
 
 /* Measure one RGBA data block: alpha + channel structure.
    `channelFocus` selects the view mode: glow view vs mask view. A
-   full-canvas ALPHA bbox is only meaningful for the mask view — the glow
+   full-canvas ALPHA bbox is only meaningful for the mask view - the glow
    repack forces A=255 everywhere by design, and its G channel
    (exterior*255) also floods the canvas by design. Only the glow R channel
    (blurred ink) going full-canvas indicates a real defect. */
@@ -170,7 +170,7 @@ function measureData(
   }
   const zs = (arr: number[]) => `[${arr.join(' ')}]`;
   const bbox = (x0: number, y0: number, x1: number, y1: number) =>
-    x1 < 0 ? '—' : `[${x0},${y0}..${x1},${y1}]`;
+    x1 < 0 ? '-' : `[${x0},${y0}..${x1},${y1}]`;
   const aFull =
     aCnt > 0 && aMinX <= 1 && aMinY <= 1 && aMaxX >= W - 2 && aMaxY >= H - 2;
   const rFull = rCnt > 0 && rMinX <= 1 && rMinY <= 1 && rMaxX >= W - 2 && rMaxY >= H - 2;
@@ -385,7 +385,7 @@ proto2d.drawImage = function (this: CanvasRenderingContext2D, ...a: unknown[]) {
   return r;
 } as unknown as typeof proto2d.drawImage;
 
-/* filter property hook (glow blur stage) — skipped silently if unsupported */
+/* filter property hook (glow blur stage) - skipped silently if unsupported */
 try {
   const desc = Object.getOwnPropertyDescriptor(CanvasRenderingContext2D.prototype, 'filter');
   if (desc && desc.set && desc.get) {
@@ -536,7 +536,7 @@ function analyzeFb(
     }
   }
   const bbox = (x0: number, y0: number, x1: number, y1: number) =>
-    x1 < 0 ? '—' : `[${x0},${y0}..${x1},${y1}]`;
+    x1 < 0 ? '-' : `[${x0},${y0}..${x1},${y1}]`;
   const rect = rX1 >= 0 && rX0 <= 1 && rY0 <= 1 && rX1 >= w - 2 && rY1 >= h - 2;
   const probe = (x: number, y: number, label: string) => {
     const row = flipY ? h - 1 - y : y;
@@ -659,7 +659,7 @@ function fbRead() {
         return c2.toDataURL('image/png');
       };
       const thumbs: { label: string; url: string }[] = [
-        { label: 'FRAMEBUFFER RGB (alpha forced 255) — a light rect here is RGB under alpha 0', url: mk('rgb') },
+        { label: 'FRAMEBUFFER RGB (alpha forced 255) - a light rect here is RGB under alpha 0', url: mk('rgb') },
         { label: 'FRAMEBUFFER alpha', url: mk('a') },
       ];
       try {
@@ -896,7 +896,7 @@ function Diag2() {
   return (
     <>
       <div className="diag2-hud">
-        <b>diag v2.2 — production wordmark + stage sequencer + framebuffer probe</b>
+        <b>diag v2.2 - production wordmark + stage sequencer + framebuffer probe</b>
         <div className="diag2-row">
           <span>context attrs (applies on Start/Replay):</span>
           <label className="diag2-radio">
@@ -1010,7 +1010,7 @@ function Diag2() {
             </li>
           ))}
         </ol>
-        <h4 className="diag2-subhead">final framebuffer — same-task readPixels (ground truth before compositing)</h4>
+        <h4 className="diag2-subhead">final framebuffer - same-task readPixels (ground truth before compositing)</h4>
         <ol className="diag2-stages">
           {fb.samples.map((s, i) => (
             <li
@@ -1046,7 +1046,7 @@ function Diag2() {
         <p className="diag2-tip">
           FB rows are the raw WebGL framebuffer read in the same task as the draw, before
           Safari composites anything. <b>A</b> = alpha stats; <b>a0RGB</b> = pixels whose
-          alpha&lt;2 but whose RGB is non-zero — the shader's exterior branch writes
+          alpha&lt;2 but whose RGB is non-zero - the shader's exterior branch writes
           spillColor RGB under near-zero alpha by design, so a light rectangle in the
           "RGB (alpha forced)" thumb is expected on every engine; what matters is whether
           your iPhone's numbers match desktop. <b>rect=YES</b> flags a full-canvas RGB
@@ -1056,7 +1056,7 @@ function Diag2() {
         </p>
         <p className="diag2-tip">
           GLOW canvases are full-canvas opaque BY DESIGN (alpha forced to 255 during the
-          repack on every engine) — a boxy GLOW <em>alpha</em> look is expected, not a finding.
+          repack on every engine) - a boxy GLOW <em>alpha</em> look is expected, not a finding.
           MASK <b>alpha</b> maps and the numeric lines are the texture-side checks; the FB
           rows above are the final-pixel check. Tap Replay to rebuild masks; the stage
           sequencer records every step.
